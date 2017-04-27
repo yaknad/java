@@ -1,0 +1,5 @@
+WEB APLICATIONS
+---------------
+SERVLET - java server side classes for web services
+JSP - java scripted file to create dynamic html - like ASP pages. Web container (like Tomcat) compiles the JSP to a servlet, and treats it like a servlet.
+web.xml is like web.config
