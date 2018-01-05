@@ -44,11 +44,12 @@ public class CustomSerializer extends StdSerializer<Test> {
 				continue;
 			}
 			try {
-				String value1 = field.get(test1).toString();
+				Object value1 = field.get(test1);
 				if(value1 == null){
 					value1 = "null";
 				}
-				jgen.writeStringField(name, value1);
+				String value2 = value1.toString();
+				jgen.writeStringField(name, value2);
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

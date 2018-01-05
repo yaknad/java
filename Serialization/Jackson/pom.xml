@@ -4,12 +4,24 @@
   <artifactId>Jackson</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
-  <dependency>
+  	<dependency>
 	<groupId>com.fasterxml.jackson.core</groupId>
 	<artifactId>jackson-databind</artifactId>
 	<version>2.2.3</version>
-</dependency>
-  </dependencies>
-  
+	</dependency>
+  </dependencies> 
+<build>
+<plugins>
+<plugin>
+    <artifactId>maven-war-plugin</artifactId>
+    <version>2.4</version>
+    <configuration>
+    	<webXml>.\WEB-INF\web.xml</webXml>
+        <!-- <failOnMissingWebXml>false</failOnMissingWebXml> -->
+    </configuration>
+</plugin>
+  </plugins>
+</build>
 
+  <packaging>war</packaging>
 </project>

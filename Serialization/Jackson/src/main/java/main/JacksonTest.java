@@ -13,7 +13,7 @@ public class JacksonTest {
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		Test test1 = new Test();
-		test1.setField1("aaa");
+		test1.setField1(null);
 		test1.setField2("bbb");
 		test1.setField3("ccc");
 		
