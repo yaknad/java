@@ -280,6 +280,9 @@
      
    
    
+   <!-- Context Events -->
+   <bean id = "cStartEventHandler" class = "com.tutorialspoint.ContextStartEventHandler"/>
+   <bean id = "cStopEventHandler" class = "com.tutorialspoint.ContextStopEventHandler"/>
 	
 
 

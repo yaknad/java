@@ -34,4 +34,13 @@ public class DummyClass {
 	public void doNothing() {
 		System.out.println("Inside doing nothing. received a=" + this.a + " and b=" + this.b);
 	}
+		
+	public void init(){
+		System.out.println("init dummy class");
+	}
+	
+	public void destroy(){
+		System.out.println("destroying dummy class");
+	}
+	
 }

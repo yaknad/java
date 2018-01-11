@@ -1,6 +1,7 @@
 package com.tutorialspoint;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,13 +14,15 @@ import com.tutorialspoint.annotations.TextEditorAnnotated;
 import com.tutorialspoint.annotations.TextEditorAnnotatedAutowiredConstructor;
 import com.tutorialspoint.annotations.TextEditorAnnotatedNoSetters;
 import com.tutorialspoint.annotations.TextEditorAnnotatedWithResourceAnnotation;
+import com.tutorialspoint.javabasedconfiguration.AnotherConfig2;
 import com.tutorialspoint.javabasedconfiguration.HelloWorldConfig;
 
 public class MainApp{
 
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("Beans_no_annotations.xml");
-
+		// ((ClassPathXmlApplicationContext) context).refresh(); -- see example for that later.
+		// ((ClassPathXmlApplicationContext) context).start(); .stop();
 		System.out.println("----------- Beans_no_annotations: Start -----------");
 
 		// Beans
@@ -58,6 +61,7 @@ public class MainApp{
 		// BeanFactory b = null;   // - a basic type of application IOC container.
 
 		// required to register to graceful shutdown events
+		// casting to ClassPathXmlApplicationContext also enables this	
 		((AbstractApplicationContext) context).registerShutdownHook();
 
 
@@ -204,8 +208,88 @@ public class MainApp{
 
 		ApplicationContext javaCtx = new AnnotationConfigApplicationContext(HelloWorldConfig.class);
 
+		System.out.println("Before registering to context.");
+
+		//		// load from more java configuration classes
+		// NOTE: 
+		// 1. in ClassPathXmlApplicationContext "register" is not possible. Only refresh.
+		// 2. it works only when the first init of the context is without assigning a context class -
+		//    new AnnotationConfigApplicationContext(); If we were using new AnnotationConfigApplicationContext(AAA.class);
+		//    the refresh will fail. BUT - stop / start does work!
+		AnnotationConfigApplicationContext javaCtx2 = new AnnotationConfigApplicationContext();
+		javaCtx2.register(AnotherConfig2.class);
+		System.out.println("Before refreshing context.");
+		javaCtx2.refresh();
+		javaCtx2.registerShutdownHook();		
+		System.out.println("Refreshed context.");
+
+		((AnnotationConfigApplicationContext)javaCtx).stop();
+		((AnnotationConfigApplicationContext)javaCtx).start();
+
 		HelloWorld helloWorld = javaCtx.getBean(HelloWorld.class);
 		helloWorld.setMessage("Hello World!");
 		helloWorld.getMessage();
+
+		// getting bean from refreshed context
+		Student studentFromOtherConfig = javaCtx2.getBean(Student.class);
+		System.out.println(studentFromOtherConfig);
+
+		TextEditor textEditor = javaCtx.getBean(TextEditor.class);
+		textEditor.spellCheck();
+		textEditor.doNothing();
+
+		System.out.println("----------- it works with autowire annotations!!! -----------");
+		// NOTE: but see - https://stackoverflow.com/questions/21020187/in-spring-what-does-autowire-autowire-no-do
+		StudentAutowired student_Autowired = javaCtx.getBean(StudentAutowired.class);
+		System.out.println(student_Autowired.getAge());
+		System.out.println(student_Autowired.getName());
+
+		System.out.println("----------- importing another config file into our config file -----------");
+		HelloIsrael hello_Israel = javaCtx.getBean(HelloIsrael.class);
+		hello_Israel.setMessage("imported config hello Israel!");
+		hello_Israel.getMessage();
+
+		System.out.println("----------- scope: prototype -----------");
+		HelloIsrael hello_Israel2 = javaCtx.getBean(HelloIsrael.class);
+		hello_Israel2.setMessage("setting another message to second instance");
+		hello_Israel.getMessage(); // message of instance 1 not changed - It's a prototype!
+		HelloWorld helloWorld2 = javaCtx.getBean(HelloWorld.class);
+		helloWorld2.setMessage("Hello World 2!");
+		helloWorld.getMessage(); // message of instance 1 changed - it's a singleton!
+
+
+		System.out.println("----------- Beans - java based configuration: End -----------");
+
+
+
+
+
+
+
+		System.out.println("----------- Listening to context events: Start -----------");
+
+		// Note:
+		// Spring's event handling is single-threaded so if an event is published, 
+		// until and unless all the receivers get the message, 
+		// the processes are blocked and the flow will not continue. 
+		// Hence, care should be taken when designing your application if the event handling is to be used.
+
+		ConfigurableApplicationContext listenedCtx = new ClassPathXmlApplicationContext("Beans_no_annotations.xml");
+
+		// Let us raise a start event.
+		listenedCtx.start();
+
+		HelloWorld helloWorld3 = (HelloWorld) listenedCtx.getBean("helloWorld");
+		helloWorld3.getMessage();
+
+		// Let us raise a stop event.
+		listenedCtx.stop();
+
+
+
+
+
+		// stopped at:
+		// https://www.tutorialspoint.com/spring/custom_events_in_spring.htm	
 	}	
 }
