@@ -281,9 +281,11 @@
    
    
    <!-- Context Events -->
-   <bean id = "cStartEventHandler" class = "com.tutorialspoint.ContextStartEventHandler"/>
-   <bean id = "cStopEventHandler" class = "com.tutorialspoint.ContextStopEventHandler"/>
-	
+   <bean id = "cStartEventHandler" class = "com.tutorialspoint.events.ContextStartEventHandler"/>
+   <bean id = "cStopEventHandler" class = "com.tutorialspoint.events.ContextStopEventHandler"/>
+   <!-- Custom Events  -->
+   <bean id = "customEventHandler" class = "com.tutorialspoint.events.CustomEventHandler"/>
+   <bean id = "customEventPublisher" class = "com.tutorialspoint.events.CustomEventPublisher"/>
 
 
 </beans>

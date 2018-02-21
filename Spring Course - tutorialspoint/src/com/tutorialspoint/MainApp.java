@@ -14,6 +14,7 @@ import com.tutorialspoint.annotations.TextEditorAnnotated;
 import com.tutorialspoint.annotations.TextEditorAnnotatedAutowiredConstructor;
 import com.tutorialspoint.annotations.TextEditorAnnotatedNoSetters;
 import com.tutorialspoint.annotations.TextEditorAnnotatedWithResourceAnnotation;
+import com.tutorialspoint.events.CustomEventPublisher;
 import com.tutorialspoint.javabasedconfiguration.AnotherConfig2;
 import com.tutorialspoint.javabasedconfiguration.HelloWorldConfig;
 
@@ -285,9 +286,14 @@ public class MainApp{
 		// Let us raise a stop event.
 		listenedCtx.stop();
 
-
-
-
+		// Custom events:
+		CustomEventPublisher cvp = (CustomEventPublisher) context.getBean("customEventPublisher");
+		cvp.publish(); 
+		cvp.publish(); 
+		cvp.publish(); 
+		
+		
+		
 
 		// stopped at:
 		// https://www.tutorialspoint.com/spring/custom_events_in_spring.htm	
