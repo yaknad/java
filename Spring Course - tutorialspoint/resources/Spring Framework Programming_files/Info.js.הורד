@@ -1,0 +1,245 @@
+﻿/// <reference path="jquery-2.0.3.js" />
+
+$(function () {
+
+    // arrange the tabs of course topics 
+    TopicsTab();
+
+
+    CheckLanguage();
+
+
+
+    $("#ExpandBtn").click(function () {
+        ExpandTopics();
+    });
+
+
+    sessionStorage['Cycle'] = null;
+
+    Share();
+
+    //on Enroll Btn click
+    spanEnrollClick();
+
+    $('.divEnrollA').click(function () {
+        // CycleSession();
+        var element = $(this);
+        sessionStorage['Cycle'] = $(element).attr('data-cycle');
+    });
+
+    
+});
+
+
+
+//if thre is no dates : show dialog msg in the current language 
+function spanEnrollClick() {
+    $("#spanEnroll").click(function () {
+        var d = $('.dates');
+        if (d.length == 0) {
+            //if (lang.value == 1) {
+            //    $('#Msg').append('<div class="NoCourseDialog">No dates related courses, please contact us so we can help</div>');
+            //}
+            //else {
+            //    $('#Msg').append('<div class="NoCourseDialog">אין תאריכים לקורסים קרובים , אנא צור קשר על מנת שנוכל לעזור</div>');
+            //}
+            $('#Msg').append($('.allnodates').show());
+            //$('#tblContacts').clone().appendTo($('#Msg'));
+            //$('#Msg').find('#tblContacts tr').first().remove();
+           // $('#Msg').append($('#tblContacts').clone()).css('margin','auto').find('tr').first().remove();
+          //  $('.NoCourseDialog').find('#tblContacts').css({ 'border-top': '#f7b22c 6px solid' });
+          //  $('#Msg').append('<div class="closeBig closeFunc">Close</div>');
+           // $('.NoCourseDialog').css({ 'background-color': '#ff4400', 'border-top-right-radius': '10px',  'border-top-left-radius': '10px' });//, 'background-color': '#f7b22c 6px solid'
+            $('#Msg').find('#tblContacts').css('margin', 'auto')
+            $('#Msg').dialog({
+                modal: true,
+                resizable: false,
+                close: function (event, ui) { $('.allnodates').hide(); /*$('#Msg').html("");*/ },
+            });
+            $('#Msg').find('.ui-helper-clearfix').remove();
+            $('#Msg').prev().remove();
+            $('#Msg').css
+            $('#Msg').parent().css({ 'width': '583px', 'height': "303px" });
+        }
+        $('.closeFunc').click(function () {
+            $("#Msg").dialog("close");
+        });
+    });
+   
+}
+
+//on Shere Icon click 
+function Share() {
+    $('.shareIcon').click(function () {
+        var parentOffset = $(this).parent().offset();
+        $('.Shere').css({ top: parentOffset.top + 60, left: parentOffset.left - 50 });
+        var isClose = $('.Shere').css("display") == "none";
+        if (isClose) {
+            //$('.Shere').show();
+            $('.st_email_large').click();
+
+        } else {
+            //$('.Shere').hide();
+        }
+    });
+
+}
+
+
+function TopicsTab() {
+    $("#tabs").tabs();
+    $(".subTopic").hide();
+    $(".subsubTopic").hide();
+    $('.icoPlusMinus').click(function () {
+        $(this).parent().children('.subTopic').slideToggle();
+
+        $(this).parent().toggleClass('lipadding').toggleClass("libackgroundcolor");
+        //if (($('.TriClose').is(':hidden') && $('.imgMinus').length > 0) ) {
+        //    $('.TriClose').slideToggle();
+        //    $('.TriOpen').slideToggle();
+        //}
+        if ($('.pImgMinus').length == 0) {
+            $('.TriClose').slideToggle();
+            $('.TriOpen').slideToggle();
+
+        }
+        $(this).next().toggleClass("pImgPlus").toggleClass("pImgMinus");
+
+        if ($('.pImgMinus').length == 0) {
+            $('.TriClose').slideToggle();
+            $('.TriOpen').slideToggle();
+        }
+
+    });
+    $('.pImgPlusMinus').click(function () {
+        $(this).parent().children('.subTopic').slideToggle();
+
+        $(this).parent().toggleClass('lipadding').toggleClass("libackgroundcolor");
+        //if (($('.TriClose').is(':hidden') && $('.imgMinus').length > 0) ) {
+        //    $('.TriClose').slideToggle();
+        //    $('.TriOpen').slideToggle();
+        //}
+        if ($('.pImgMinus').length == 0) {
+            $('.TriClose').slideToggle();
+            $('.TriOpen').slideToggle();
+
+        }
+        $(this).toggleClass("pImgPlus").toggleClass("pImgMinus");
+
+        if ($('.pImgMinus').length == 0) {
+            $('.TriClose').slideToggle();
+            $('.TriOpen').slideToggle();
+        }
+
+    });
+}
+
+
+function ExpandTopics() {
+    //  $('.subTopic').slideToggle();
+    //ExpandBtn
+    //if ($('li').hasClass('parent') && $('li').hasClass('lipadding')) {
+    //    $('li.parent.lipadding').removeClass('lipadding');
+    //}
+    //else if ($('li').hasClass('parent') && !($('li').hasClass('lipadding')))
+    //    $('li.parent').addClass('lipadding');
+
+
+
+    // if ($('#expand').text() == "Expand All") {
+    if ($('.TriClose').is(':hidden')) {
+        $('#expand').text('Collapse All');
+        $(".subTopic").hide();
+        $('li.parent').addClass("lipadding").removeClass("libackgroundcolor");
+        $(".icoPlusMinus").removeClass("imgMinus").addClass("imgPlus");
+        $(".pImgPlusMinus").removeClass("pImgMinus").addClass("pImgPlus");
+        $('.TriClose').slideToggle();
+        $('.TriOpen').slideToggle();
+    }
+    else {
+        $('#expand').text('Expand All');
+        $(".subTopic").show();
+        $('li.parent').removeClass("lipadding").addClass("libackgroundcolor");
+        $(".icoPlusMinus").addClass("imgMinus").removeClass("imgPlus");
+        $(".pImgPlusMinus").removeClass("pImgPlus").addClass("pImgMinus");
+        $('.TriClose').slideToggle();
+        $('.TriOpen').slideToggle();
+    }
+    //  $('li.parent').toggleClass("lipadding").toggleClass("libackgroundcolor");
+    //$(".icoPlusMinus").toggleClass("imgMinus").toggleClass("imgPlus");
+
+    //$('.TriOpen').toggle();
+    //$('.TriClose').toggle();
+
+}
+
+//get the Language from  @Html.Hidden("lang", Model.Details.lang) : get language from model 
+// 1 for Eng : 2 for Heb
+function CheckLanguage() {
+    var lang = $('#lang').val();
+    if (lang == "2") {
+        $('.divDescContent').addClass("Rtl");
+    }
+}
+
+
+//ajax GetCourseTimeTable success callback
+function updatingsuccessfulDate(data) {
+    var dataList = data;
+    $('#Msg').dialog({
+        modal: true,
+        width: 500,
+        minWidth: 200,
+        dialogClass: "DatesDialog",
+        resizable: false,
+        close: function (event, ui) { $('#Msg').html(""); },
+    });
+
+
+    
+    // dataList = [];
+    if (dataList.length > 0) {
+        $('#Msg').append('<div class="ColoseWhiteX closeFunc">X</div>');
+        $('#Msg').append('<table id="TimeTable"> <thead><tr><th scope="col">Date</th><th scope="col">Week day</th><th scope="col">Start</th><th scope="col">End</th></tr></thead><tbody></tbody></table>');
+        $(dataList).each(function () {
+            var element = this;
+            $('#TimeTable').append('<tr class="CourseTr"><td>' + element.Date + '</td><td>' + element.WeekDay + '</td><td>' + element.Start + '</td><td>' + element.End + '</td></tr>');
+        });
+        $('#Msg').append('<div class="closeBig closeFunc">Close</div>');
+
+    }
+
+    //close Btn 
+    $('.closeFunc').click(function () {
+        $("#Msg").dialog("close");
+    });
+}
+
+
+var sendTofriend = function () {
+  
+    window.open('../Syllabus/Email?courseCode=' + $('#spnVers').attr('data-CourseCode'), 'llll', 'directories=no,width=530,  scrollbars=1,height=800,left=500,top=10,resizable=no,location=no');
+    window.close();
+   // $('.sendEmailDialog').dialog({
+   //     modal: true,
+   //     width: 500,
+   //     minWidth: 200,
+   //     dialogClass: "DatesDialog",
+   //     resizable: false,
+   //     close: function (event, ui) { $('.sendEmailDialog').hide(); },
+   // });
+   // $('input[type=radio]:first').prop('checked', true);
+
+   // $('.ui-draggable').css('width', '470px');
+   //// $('.tableEmail').css('font', 'Segoe Ui');
+
+   // $('.closeFunc').click(function () {
+   //     $(".sendEmailDialog").dialog("close");
+   // });
+
+}
+
+
+
+

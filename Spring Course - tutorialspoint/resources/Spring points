@@ -1,0 +1,32 @@
+Points:
+-------
+Core Container: Core, Beans, Context, SpeL
+Data Access/Integration: JDBC, ORM, OXM (xml), JMS, Transaction
+Web: Web, Web-MVC, Web-Socket, Web-Portlet
+Miscellaneous modules: AOP, Aspects, Instrumentation, Messaging, Test 
+
+
+
+Beans xml tags:
+---------------
+file root:
+<beans></beans> 
+
+bean declaration (+ property assign)
+<bean id = "helloWorld" class = "com.tutorialspoint.HelloWorld">
+  <property name = "message" value = "Hello World!"/>
+</bean>
+
+
+
+
+Context types:
+--------------
+ApplicationContext - abstract
+FileSystemXmlApplicationContext - Loads the beans config from an XML file. Need to provide the full path of the XML to the constructor.
+ClassPathXmlApplicationContext  - loads the beans config from an XML file. No need to provide the FULL path of the XML file but you need to set the CLASSPATH properly because this container will look like bean configuration XML file in CLASSPATH.
+WebXmlApplicationContext − loads beans config XML file from within a web application.
+.... - reads configuration from Annotations (+ Beans configuration xml file??? ),
+.... - reads configuration from Java code ( + ????)
+BeanFactory - the simplest container providing the basic support for DI (and also: BeanFactoryAware, InitializingBean, DisposableBean).
+It still exists for backward compatibility. Use ApplicationContext instead.
