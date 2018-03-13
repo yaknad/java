@@ -5,7 +5,7 @@
 	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/spring-framework-5.0.3.RELEASE-dist/spring-framework-5.0.3.RELEASE/libs/spring-aop-5.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/spring-framework-5.0.3.RELEASE-dist/spring-framework-5.0.3.RELEASE/libs/spring-aspects-5.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/spring-framework-5.0.3.RELEASE-dist/spring-framework-5.0.3.RELEASE/libs/spring-beans-5.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/spring-framework-5.0.3.RELEASE-dist/spring-framework-5.0.3.RELEASE/libs/spring-context-5.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/spring-framework-5.0.3.RELEASE-dist/spring-framework-5.0.3.RELEASE/libs/spring-context-5.0.3.RELEASE.jar" sourcepath="C:/Users/ynadler/.m2/repository/org/springframework/spring-context/5.0.3.RELEASE/spring-context-5.0.3.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/spring-framework-5.0.3.RELEASE-dist/spring-framework-5.0.3.RELEASE/libs/spring-context-indexer-5.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/spring-framework-5.0.3.RELEASE-dist/spring-framework-5.0.3.RELEASE/libs/spring-context-support-5.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/spring-framework-5.0.3.RELEASE-dist/spring-framework-5.0.3.RELEASE/libs/spring-core-5.0.3.RELEASE.jar"/>

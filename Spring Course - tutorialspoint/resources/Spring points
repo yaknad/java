@@ -9,24 +9,51 @@ Miscellaneous modules: AOP, Aspects, Instrumentation, Messaging, Test
 
 Beans xml tags:
 ---------------
-file root:
+1) file root:
 <beans></beans> 
 
-bean declaration (+ property assign)
+2) bean declaration (+ property assign):
 <bean id = "helloWorld" class = "com.tutorialspoint.HelloWorld">
   <property name = "message" value = "Hello World!"/>
 </bean>
+attributes: 
+class, 
+name, 
+scope: singleton (default), prototype, request, session, global-session 
+constructor-arg,
+properties,
+autowiring mode,
+lazy-initialization mode: tells the IoC container to create a bean instance when it is first requested, rather than at the startup.
+init-method: A callback to be called just after all necessary properties on the bean have been set by the container. Either this
+					   or the bean can implement the InitializingBean interface, and then the afterPropertiesSet() will be called without using this attribute.
+default-init-method: same as "init-method" to be used globally (in the <beans> object).
+destroy-method: A callback to be used when the container containing the bean is destroyed.  Either this 
+					or the bean can implement the DisposableBean interface, and then the destroy() will be called without using this attribute.
+					This requires the using of the registerShutdownHook() method of the AbstractApplicationContext.
+default-destroy-method: same as "destroy-method" to be used globally (in the <beans> object).
 
 
-
-
-Context types:
---------------
+Context types (IoC Containers):
+-------------------------------
 ApplicationContext - abstract
+AbstractApplicationContext - abstract
 FileSystemXmlApplicationContext - Loads the beans config from an XML file. Need to provide the full path of the XML to the constructor.
 ClassPathXmlApplicationContext  - loads the beans config from an XML file. No need to provide the FULL path of the XML file but you need to set the CLASSPATH properly because this container will look like bean configuration XML file in CLASSPATH.
 WebXmlApplicationContext − loads beans config XML file from within a web application.
-.... - reads configuration from Annotations (+ Beans configuration xml file??? ),
+AnnotationConfigApplicationContext - reads configuration from Annotations - Java based configuration (+ Beans configuration xml file??? ),
 .... - reads configuration from Java code ( + ????)
 BeanFactory - the simplest container providing the basic support for DI (and also: BeanFactoryAware, InitializingBean, DisposableBean).
 It still exists for backward compatibility. Use ApplicationContext instead.
+
+
+Useful Interfaces:
+-------------------
+InitializingBean (see above)
+DisposableBean (see above)
+BeanPostProcessor: defines callback methods to run before/after the Spring container finishes initializing a bean. You may create some of these and control
+				   their order of calling by implementing the Ordered interface. You should register these BeanPostProcessors as beans. 
+				   An ApplicationContext automatically detects any beans that are defined with the implementation of the BeanPostProcessor interface 
+				   and registers these beans as postprocessors. The "after init" method needs the AbstractApplicationContext.registerShutdownHook() to run.
+				   The "before init" method will run before the method that is registered in the bean's init-method attribute.
+				   The "after init" method will run after the method that is registered in the bean's init-method attribute.
+Ordered: see BeanPostProcessor.			   
