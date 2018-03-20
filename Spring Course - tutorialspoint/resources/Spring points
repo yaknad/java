@@ -9,19 +9,22 @@ Miscellaneous modules: AOP, Aspects, Instrumentation, Messaging, Test
 
 Beans xml tags:
 ---------------
-1) file root:
-<beans></beans> 
+file root:
+<beans  default-init-method=,default-destroy-method= ></beans> 
 
-2) bean declaration (+ property assign):
-<bean id = "helloWorld" class = "com.tutorialspoint.HelloWorld">
+bean declaration (+ property assign):
+<bean id = "helloWorld" class = "com.tutorialspoint.HelloWorld", parent, abstract, scope, name, init, destroy>
   <property name = "message" value = "Hello World!"/>
 </bean>
+
 attributes: 
 class, 
 name, 
-scope: singleton (default), prototype, request, session, global-session 
+scope: singleton (default), prototype, request, session, global-session ,
+parent: enables beans definition inheritance (value is the id / name of another bean - the parent) ,
+abstract: define a bean as a template to be used as parent by other beans,
 constructor-arg,
-properties,
+property.ref: assign a beans' property with a reference to another bean,
 autowiring mode,
 lazy-initialization mode: tells the IoC container to create a bean instance when it is first requested, rather than at the startup.
 init-method: A callback to be called just after all necessary properties on the bean have been set by the container. Either this
@@ -32,6 +35,62 @@ destroy-method: A callback to be used when the container containing the bean is 
 					This requires the using of the registerShutdownHook() method of the AbstractApplicationContext.
 default-destroy-method: same as "destroy-method" to be used globally (in the <beans> object).
 
+
+Dependency Injection:
+---------------------
+Setter based:
+<bean ...>
+	<property name = "field1" ref = "another bean name to be injected in here"/>
+	<property name = "field2" value = "a primitive value or a simple boxed value"/>
+</bean>	
+or:
+adding the namespace xmlns:p = "http://www.springframework.org/schema/p": 
+<bean id = "x" class = "xyz" p:field1-ref = "another bean name" p:field2 = "simple value"/>
+</bean>
+
+Constructor based:
+<bean ...>
+      <constructor-arg ref = "bean name for first constructor param"/>
+      <constructor-arg value = "simple value for second constructor param"/>
+</bean>
+or with explicit ordering:
+<bean ...>
+      <constructor-arg index="0" ref = "bean name for first constructor param"/>
+      <constructor-arg index="1" value = "simple value for second constructor param"/>
+</bean>
+or with explicit type matching:
+<bean ...>
+      <constructor-arg type = "com.MyClass" ref = "bean name for first constructor param"/>
+      <constructor-arg type = "int" value = "simple value for second constructor param"/>
+</bean>
+
+Inner bean (accessible only inside the outer bean):
+<bean id = "x" class = "com.FirstClass">
+      <property name = "prop">
+         <bean id = "y" class = "com.SecondBean"/>   - instead of referencing another "outer" bean
+      </property>
+</bean>
+
+Injected collections:
+<list> - list of values, allowing duplicates.
+<set> - set of values but without any duplicates.
+<map> - collection of name-value pairs where name and value can be of any type.
+<props> - a collection of name-value pairs where the name and value are both Strings.
+for example:
+<bean>
+	  <property name = "someMapProperty">
+         <map>
+            <entry key = "1" value = "Hello"/>
+            <entry key = "2" value = "World"/>
+            <entry key = "3" value-ref = "reference to another bean"/>
+         </map>
+      </property>
+</bean>
+
+Injecting Null values (see more examples of nulls and empty strings in the demo application):
+<bean id = "..." class = "...">
+   <property name = "propName"><null/></property>
+</bean>
 
 Context types (IoC Containers):
 -------------------------------
