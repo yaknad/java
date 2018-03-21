@@ -25,7 +25,7 @@ parent: enables beans definition inheritance (value is the id / name of another 
 abstract: define a bean as a template to be used as parent by other beans,
 constructor-arg,
 property.ref: assign a beans' property with a reference to another bean,
-autowiring mode,
+autowire: sets the autowiring mode - see the autowire section in the Dependency Injection chapter,
 lazy-initialization mode: tells the IoC container to create a bean instance when it is first requested, rather than at the startup.
 init-method: A callback to be called just after all necessary properties on the bean have been set by the container. Either this
 					   or the bean can implement the InitializingBean interface, and then the afterPropertiesSet() will be called without using this attribute.
@@ -38,7 +38,7 @@ default-destroy-method: same as "destroy-method" to be used globally (in the <be
 
 Dependency Injection:
 ---------------------
-Setter based:
+*** Setter based:
 <bean ...>
 	<property name = "field1" ref = "another bean name to be injected in here"/>
 	<property name = "field2" value = "a primitive value or a simple boxed value"/>
@@ -48,7 +48,7 @@ adding the namespace xmlns:p = "http://www.springframework.org/schema/p":
 <bean id = "x" class = "xyz" p:field1-ref = "another bean name" p:field2 = "simple value"/>
 </bean>
 
-Constructor based:
+*** Constructor based:
 <bean ...>
       <constructor-arg ref = "bean name for first constructor param"/>
       <constructor-arg value = "simple value for second constructor param"/>
@@ -91,6 +91,18 @@ Injecting Null values (see more examples of nulls and empty strings in the demo 
 <bean id = "..." class = "...">
    <property name = "propName"><null/></property>
 </bean>
+
+
+*** Autowiring (both by xml - using the autowire attribute in the bean declaration, or by annotations)
+modes (set by the "autowire" attribute of the bean):
+no - default. no autowiring. use explicit wiring (Constructor or Setter based - like seen before).
+byName - for properties of the beans on which autowire attribute is set to "byName" in the XML file, 
+		 it tries to match and wire its properties with the beans defined by the same names in the configuration file.
+byType - tries to match and wire a property if its type matches with exactly one of the bean types in configuration file. 
+		 If more than one such beans exists, a fatal exception is thrown.
+constructor - same as "byType" but injected as constructor-arg (e.g. when already using one explicit "constructor-arg" param,
+			  Spring will know it should use a constructor args injection, and use automatic injection for the other constructor params). 
+
 
 Context types (IoC Containers):
 -------------------------------
