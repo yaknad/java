@@ -1,5 +1,5 @@
 Points:
--------
+*******
 Core Container: Core, Beans, Context, SpeL
 Data Access/Integration: JDBC, ORM, OXM (xml), JMS, Transaction
 Web: Web, Web-MVC, Web-Socket, Web-Portlet
@@ -8,7 +8,7 @@ Miscellaneous modules: AOP, Aspects, Instrumentation, Messaging, Test
 
 
 Beans xml tags:
----------------
+***************
 file root:
 <beans  default-init-method=,default-destroy-method= ></beans> 
 
@@ -37,8 +37,9 @@ default-destroy-method: same as "destroy-method" to be used globally (in the <be
 
 
 Dependency Injection:
----------------------
-*** Setter based:
+*********************
+Setter based:
+-------------
 <bean ...>
 	<property name = "field1" ref = "another bean name to be injected in here"/>
 	<property name = "field2" value = "a primitive value or a simple boxed value"/>
@@ -48,7 +49,8 @@ adding the namespace xmlns:p = "http://www.springframework.org/schema/p":
 <bean id = "x" class = "xyz" p:field1-ref = "another bean name" p:field2 = "simple value"/>
 </bean>
 
-*** Constructor based:
+Constructor based:
+------------------
 <bean ...>
       <constructor-arg ref = "bean name for first constructor param"/>
       <constructor-arg value = "simple value for second constructor param"/>
@@ -93,19 +95,32 @@ Injecting Null values (see more examples of nulls and empty strings in the demo 
 </bean>
 
 
-*** Autowiring (both by xml - using the autowire attribute in the bean declaration, or by annotations)
+Autowiring (both by xml - using the autowire attribute in the bean declaration, or by annotations)
+-----------
+advantage or regular DI - reduce the need to specify properties or constructor arguments
+disadvantages - Cannot autowire simple properties such as primitives, Strings, and Classes.
+				Autowiring is less exact than explicit wiring, so if possible prefer using explict wiring.
+				You can still specify dependencies using <constructor-arg> and <property> settings which will always override autowiring.
+
 modes (set by the "autowire" attribute of the bean):
 no - default. no autowiring. use explicit wiring (Constructor or Setter based - like seen before).
 byName - for properties of the beans on which autowire attribute is set to "byName" in the XML file, 
 		 it tries to match and wire its properties with the beans defined by the same names in the configuration file.
-byType - tries to match and wire a property if its type matches with exactly one of the bean types in configuration file. 
+byType - tries to match and wire a property if its type matches with exactly one of the bean names (? - should be: type names) in configuration file. 
 		 If more than one such beans exists, a fatal exception is thrown.
-constructor - same as "byType" but injected as constructor-arg (e.g. when already using one explicit "constructor-arg" param,
-			  Spring will know it should use a constructor args injection, and use automatic injection for the other constructor params). 
+constructor - same as "byType"(!) but injected as constructor-arg (e.g. when already using one explicit "constructor-arg" param,
+			  Spring will know it should use a constructor args injection, and use automatic injection for the other constructor param
+autodetect - first tries to autowire using "constructor" and not possible, uses "byType". 
+ 
+Annotations:
+************
+
+
+
 
 
 Context types (IoC Containers):
--------------------------------
+*******************************
 ApplicationContext - abstract
 AbstractApplicationContext - abstract
 FileSystemXmlApplicationContext - Loads the beans config from an XML file. Need to provide the full path of the XML to the constructor.
@@ -118,7 +133,7 @@ It still exists for backward compatibility. Use ApplicationContext instead.
 
 
 Useful Interfaces:
--------------------
+******************
 InitializingBean (see above)
 DisposableBean (see above)
 BeanPostProcessor: defines callback methods to run before/after the Spring container finishes initializing a bean. You may create some of these and control
