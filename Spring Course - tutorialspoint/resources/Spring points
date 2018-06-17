@@ -24,6 +24,7 @@ scope: singleton (default), prototype, request, session, global-session ,
 parent: enables beans definition inheritance (value is the id / name of another bean - the parent) ,
 abstract: define a bean as a template to be used as parent by other beans,
 constructor-arg,
+property,
 property.ref: assign a beans' property with a reference to another bean,
 autowire: sets the autowiring mode - see the autowire section in the Dependency Injection chapter,
 lazy-initialization mode: tells the IoC container to create a bean instance when it is first requested, rather than at the startup.
@@ -95,28 +96,47 @@ Injecting Null values (see more examples of nulls and empty strings in the demo 
 </bean>
 
 
-Autowiring (both by xml - using the autowire attribute in the bean declaration, or by annotations)
+Autowiring (autowire relationships between collaborating beans without using <constructor-arg> and <property> elements)
 -----------
-advantage or regular DI - reduce the need to specify properties or constructor arguments
+(Two options to trigger it: A. by xml - using the autowire attribute in the bean declaration. B. by annotations - see in "annotations" section)
+advantage over regular DI - reduce the need to specify properties or constructor arguments in xml.
 disadvantages - Cannot autowire simple properties such as primitives, Strings, and Classes.
-				Autowiring is less exact than explicit wiring, so if possible prefer using explict wiring.
+				Autowiring is less exact than explicit wiring, so if possible prefer using explicit wiring.
 				You can still specify dependencies using <constructor-arg> and <property> settings which will always override autowiring.
 
-modes (set by the "autowire" attribute of the bean):
+modes (set by the "autowire" attribute of the bean. Only when using the autowire attribute. When using annotations there's a unique behavoir
+	   to each annotation - see in the annotations section.):
 no - default. no autowiring. use explicit wiring (Constructor or Setter based - like seen before).
 byName - for properties of the beans on which autowire attribute is set to "byName" in the XML file, 
 		 it tries to match and wire its properties with the beans defined by the same names in the configuration file.
 byType - tries to match and wire a property if its type matches with exactly one of the bean names (? - should be: type names) in configuration file. 
 		 If more than one such beans exists, a fatal exception is thrown.
 constructor - same as "byType"(!) but injected as constructor-arg (e.g. when already using one explicit "constructor-arg" param,
-			  Spring will know it should use a constructor args injection, and use automatic injection for the other constructor param
+			  Spring will know it should use a constructor args injection, and use automatic injection for the other constructor param.)
 autodetect - first tries to autowire using "constructor" and not possible, uses "byType". 
  
 Annotations:
 ************
-
-
-
+Annotation injection is performed before XML injection. Thus, the latter configuration will override the former for properties wired through both approaches.
+Add to configuration xml file: <context:annotation-config/>. You should still declare beans in the xml file 
+(the annotations replace some of the features we used in the xml before - but not all)
+@Required: applies to bean property setter methods and it indicates that the affected bean property must be populated in XML configuration file 
+		   at configuration time. Otherwise, the container throws a BeanInitializationException exception.
+@Autowired: on Setter Methods: to get rid of the <property> element in XML configuration file. When Spring finds an @Autowired 
+						annotation used with setter methods, it tries to perform *byType* autowiring on the method. (see @Resource annotation.)
+			on Properties: to get rid of the setter methods. When you will pass values of autowired properties using <property> Spring will automatically 
+						assign those properties with the passed values or references. (*byType* autowiring.)
+			on Constructors: indicates that the constructor should be autowired when creating the bean, even if no <constructor-arg> elements 
+						are used while configuring the bean in XML file. (*byType* autowiring.)
+			with (required=false) option: By default, the @Autowired annotation implies the dependency is required similar to @Required annotation, 
+						however, you can turn off the default behavior by using (required=false) option with @Autowired. (*byType* autowiring.)
+@PostConstruct: an alternate of the "init-method" attribute.
+@PreDestroy: an alternate of the "destroy-method" attribute. (still needs registerShutdownHook())
+@Resource: on fields or setter methods. Takes a 'name' attribute which will be interpreted as the bean name to be injected. 
+		   It follows by-name autowiring semantics - as opposed to @Autowired annotation that acts byType.
+		   If no 'name' is specified explicitly, the default name is derived from the field name or setter method. In case of a field, it takes the field name; 
+		   in case of a setter method, it takes the bean property name.
+@Qualifier: when you create more than one bean of the same type and want to wire only one of them with a property. (to be used together with @Autowired)		   
 
 
 Context types (IoC Containers):
