@@ -115,6 +115,33 @@ constructor - same as "byType"(!) but injected as constructor-arg (e.g. when alr
 			  Spring will know it should use a constructor args injection, and use automatic injection for the other constructor param.)
 autodetect - first tries to autowire using "constructor" and not possible, uses "byType". 
  
+Java based Configuration
+************************
+See Annotations: @Configuration, @Bean
+Uses a class annotated with @Configuration as a source of bean definitions. 
+This can be used with the AnnotationConfigApplicationContext class to retrieve this beans (NO NEED FOR XML FILE!). 
+It may use multiple config classes. When using the @Reuqired annotation (see in Annotations) , only the main configuration file should be 
+used when instantiating the AnnotationConfigApplicationContext class (see below).
+The method name that is annotated with @Bean works as bean ID and it creates and returns the actual bean. 
+
+AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ConfigClass.class);
+ctx.register(AppConfig.class, OtherConfig.class);
+...
+MyService myService = ctx.getBean(MyService.class); (ConfigClass has a "public MyService myService()" method).
+
+Beans dependency:
+@Configuration
+public class TextEditorConfig {
+   @Bean 
+   public TextEditor textEditor(){
+      return new TextEditor( spellChecker() );
+   }
+   @Bean 
+   public SpellChecker spellChecker(){
+      return new SpellChecker( );
+   }
+}
+
 Annotations:
 ************
 Annotation injection is performed before XML injection. Thus, the latter configuration will override the former for properties wired through both approaches.
@@ -137,7 +164,11 @@ Add to configuration xml file: <context:annotation-config/>. You should still de
 		   If no 'name' is specified explicitly, the default name is derived from the field name or setter method. In case of a field, it takes the field name; 
 		   in case of a setter method, it takes the bean property name.
 @Qualifier: when you create more than one bean of the same type and want to wire only one of them with a property. (to be used together with @Autowired)		   
-
+@Configuration: indicates that the class can be used by the Spring IoC container as a source of bean definitions.
+@Bean: a method annotated with @Bean will return an object that should be registered as a bean in the 
+	  Spring application context (via annotations or xml). Properties of this annotations: (initMethod = "init", destroyMethod = "cleanup" )
+@Import: in Java script configuration, allows for loading @Bean definitions from another configuration class.
+@Scope: defines the beans scope in a Java configuration class. Use it - @Scope("prototype").
 
 Context types (IoC Containers):
 *******************************
@@ -146,11 +177,10 @@ AbstractApplicationContext - abstract
 FileSystemXmlApplicationContext - Loads the beans config from an XML file. Need to provide the full path of the XML to the constructor.
 ClassPathXmlApplicationContext  - loads the beans config from an XML file. No need to provide the FULL path of the XML file but you need to set the CLASSPATH properly because this container will look like bean configuration XML file in CLASSPATH.
 WebXmlApplicationContext − loads beans config XML file from within a web application.
-AnnotationConfigApplicationContext - reads configuration from Annotations - Java based configuration (+ Beans configuration xml file??? ),
-.... - reads configuration from Java code ( + ????)
+AnnotationConfigApplicationContext - reads configuration from Annotations - Java based configuration. Reads configuration from Java code.
 BeanFactory - the simplest container providing the basic support for DI (and also: BeanFactoryAware, InitializingBean, DisposableBean).
 It still exists for backward compatibility. Use ApplicationContext instead.
-
+AnnotationConfigApplicationContext
 
 Useful Interfaces:
 ******************
