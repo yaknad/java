@@ -175,7 +175,8 @@ Context types (IoC Containers):
 ApplicationContext - abstract
 AbstractApplicationContext - abstract
 FileSystemXmlApplicationContext - Loads the beans config from an XML file. Need to provide the full path of the XML to the constructor.
-ClassPathXmlApplicationContext  - loads the beans config from an XML file. No need to provide the FULL path of the XML file but you need to set the CLASSPATH properly because this container will look like bean configuration XML file in CLASSPATH.
+ClassPathXmlApplicationContext  - loads the beans config from an XML file. No need to provide the FULL path of the XML file but you need to set 
+								  the CLASSPATH properly because this container will look like bean configuration XML file in CLASSPATH.
 WebXmlApplicationContext − loads beans config XML file from within a web application.
 AnnotationConfigApplicationContext - reads configuration from Annotations - Java based configuration. Reads configuration from Java code.
 BeanFactory - the simplest container providing the basic support for DI (and also: BeanFactoryAware, InitializingBean, DisposableBean).
@@ -191,5 +192,5 @@ BeanPostProcessor: defines callback methods to run before/after the Spring conta
 				   An ApplicationContext automatically detects any beans that are defined with the implementation of the BeanPostProcessor interface 
 				   and registers these beans as postprocessors. The "after init" method needs the AbstractApplicationContext.registerShutdownHook() to run.
 				   The "before init" method will run before the method that is registered in the bean's init-method attribute.
-				   The "after init" method will run after the method that is registered in the bean's init-method attribute.
+				   The "after init" method will run after the method that is registered in the bean's destroy-method attribute.
 Ordered: see BeanPostProcessor.			   
