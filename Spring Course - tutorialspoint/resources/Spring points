@@ -5,13 +5,27 @@ Data Access/Integration: JDBC, ORM, OXM (xml), JMS, Transaction
 Web: Web, Web-MVC, Web-Socket, Web-Portlet
 Miscellaneous modules: AOP, Aspects, Instrumentation, Messaging, Test 
 
+Application Context lifecycle:
+******************************
+https://www.codeproject.com/Articles/1195578/Spring-Context-Internals-Part-Refresh
 
+
+Bean lifecycle:
+***************
+see https://www.concretepage.com/spring/spring-bean-life-cycle-tutorial
+and https://stackoverflow.com/questions/21163355/spring-context-and-bean-lifecycle-callbacks-practical-examples-of-usage
+Spring "wraps" any bean with many interfaces that define the phases of its lifecycle. For example, when declaring an init-method on a bean definition 
+(e.g. on a xml config file), the bean is wrapped with a InitializingBean interface, and its afterPropertiesSet() is called during the beans lifecycle,
+calling the "init-method".
 
 Beans xml tags:
 ***************
 file root:
 <beans  default-init-method=,default-destroy-method= ></beans> 
 
+<import> (same as @Import annotation) enables importing more configurations from another xml file. 
+		 No need for full file url, use "classpath:" as the base url for the file. 
+		 
 bean declaration (+ property assign):
 <bean id = "helloWorld" class = "com.tutorialspoint.HelloWorld", parent, abstract, scope, name, init, destroy>
   <property name = "message" value = "Hello World!"/>
@@ -175,22 +189,104 @@ Context types (IoC Containers):
 ApplicationContext - abstract
 AbstractApplicationContext - abstract
 FileSystemXmlApplicationContext - Loads the beans config from an XML file. Need to provide the full path of the XML to the constructor.
-ClassPathXmlApplicationContext  - loads the beans config from an XML file. No need to provide the FULL path of the XML file but you need to set 
-								  the CLASSPATH properly because this container will look like bean configuration XML file in CLASSPATH.
+ClassPathXmlApplicationContext  - loads the beans config from an XML file. No need to provide the FULL path of the XML file but you need to set the CLASSPATH properly because this container will look like bean configuration XML file in CLASSPATH.
 WebXmlApplicationContext − loads beans config XML file from within a web application.
 AnnotationConfigApplicationContext - reads configuration from Annotations - Java based configuration. Reads configuration from Java code.
 BeanFactory - the simplest container providing the basic support for DI (and also: BeanFactoryAware, InitializingBean, DisposableBean).
 It still exists for backward compatibility. Use ApplicationContext instead.
 AnnotationConfigApplicationContext
 
+Listening to Context Events
+***************************
+ApplicationContext manages the complete life cycle of the beans. The ApplicationContext publishes certain types of events when loading the beans:
+ContextRefreshedEvent - published when the ApplicationContext is either initialized or refreshed. This can also be raised using the refresh() method on the
+						ConfigurableApplicationContext interface.
+ContextStartedEvent - published when the ApplicationContext is started using the start() method on the ConfigurableApplicationContext interface. 
+					  You can poll your database or you can restart any stopped application after receiving this event.
+ContextStoppedEvent - published when the ApplicationContext is stopped using the stop() method on the ConfigurableApplicationContext interface. 
+					  You can do required housekeep work after receiving this event.
+ContextClosedEvent -  published when the ApplicationContext is closed using the close() method on the ConfigurableApplicationContext interface. 
+					  A closed context reaches its end of life; it cannot be refreshed or restarted.
+RequestHandledEvent - This is a web-specific event telling all beans that an HTTP request has been serviced.
+
+Event handling in the ApplicationContext is provided through the ApplicationEvent class and ApplicationListener interface (has one method - onApplicationEvent). A (declared) Bean that implements the ApplicationListener interface will be notified with an ApplicationEvent instance every time the ApplicationContext publishes an event.
+Spring's event handling is single-threaded so if an event is published, until and unless all the receivers get the message, the processes are blocked and the flow will not continue. Hence, care should be taken when designing your application if the event handling is to be used.
+
+Custom events:
+Create a custom event that extends ApplicationEvent. Create a "Publisher" class which implements ApplicationEventPublisherAware. (Otherwise, it may get ApplicationEventPublisher from the Spring runtime - via @Autowired or else, and use it to publish the event.) Declare this class in XML configuration file as a bean (otherwise the container will not identify it as an events publisher). Create a "Handler" class which implements ApplicationListener interface (has onApplicationEvent method) for the custom event. Declare the handler as a bean (in xml file).
+NOTE - Spring events, also the custom eventss, are synchronous!!! (see "Async events")
+
+In order to handle an event and return a new event from the handler, see:
+http://zoltanaltfatter.com/2016/05/11/application-events-with-spring/
+
+Async events:
+By default, the "publishing" thread (like the one of ApplicationContext) will block until all listeners have finished processing the event. The advantage of this is that if the publisher is running in a transactional context, the listener will receive the event within the same transactional context. However if processing events takes long, we can tell Spring to handle events asynchronously. 
+In order to do this we need to redefine the ApplicationEventMulticaster bean with id applicationEventMulticaster configuring it with an asynchronous TaskExecutor:
+
+@Bean
+ApplicationEventMulticaster applicationEventMulticaster() {
+    SimpleApplicationEventMulticaster eventMulticaster = new SimpleApplicationEventMulticaster();
+    eventMulticaster.setTaskExecutor(new SimpleAsyncTaskExecutor());
+    eventMulticaster.setErrorHandler(TaskUtils.LOG_AND_SUPPRESS_ERROR_HANDLER);
+    return eventMulticaster;
+}
+
+or in xml config file:
+<bean id="applicationEventMulticaster" class="org.springframework.context.event.SimpleApplicationEventMulticaster">
+    <property name="taskExecutor" >
+        <bean class="org.springframework.core.task.SimpleAsyncTaskExecutor">
+        </bean>
+    </property>
+</bean>
+
+NOTE: this change will be global to the ApplicationContext meaning that all event listeners (e.g. methods annotated with @EventListener, or any implementations of ApplicationListener) will be executed asynchronously. see: http://learningviacode.blogspot.com/2012/08/publishing-events-asynchronously.html
+If we like to have some events delivered synchronously others asynchronously within the same ApplicationContext check out this blog post:
+https://www.keyup.eu/en/blog/101-synchronous-and-asynchronous-spring-events-in-one-application
+
+A much easier way to handle some events asynchronously is to use the @Async annotation.
+
+@Async
+@EventListener
+void handleAsync(SomeEvent event) {
+    // processed in a separate thread.
+}
+(TODO: does is work for the non-custom events
+
+Filtering:
+It is possible to filter the events in the listener via the condition attribute:
+@EventListener(condition = "#customEvent.someProperty >= 100")
+
+Transaction bound events:
+With synchronous event handling the , the listener can be bound to a phase of the transaction in which the publisher is running.
+* listener should only handle the TaskScheduledEvent once the transaction in which it was published committed *successfully*:
+@TransactionalEventListener(fallbackExecution=true/false, phase = TransactionPhase.AFTER_ROLLBACK)
+public void handleAfterCommit(TaskScheduledEvent event)
+    ...
+}
+The fallbackExecution attribute tells Spring weather to run the handler when no transaction is used.
+The phase attribute tells Spring in which phase of the transaction to use the handler.
+ 
+
 Useful Interfaces:
 ******************
-InitializingBean (see above)
-DisposableBean (see above)
+InitializingBean (see above - same as declaring "init-method")
+DisposableBean (see above - same as declaring "destroy-method")
 BeanPostProcessor: defines callback methods to run before/after the Spring container finishes initializing a bean. You may create some of these and control
 				   their order of calling by implementing the Ordered interface. You should register these BeanPostProcessors as beans. 
 				   An ApplicationContext automatically detects any beans that are defined with the implementation of the BeanPostProcessor interface 
 				   and registers these beans as postprocessors. The "after init" method needs the AbstractApplicationContext.registerShutdownHook() to run.
 				   The "before init" method will run before the method that is registered in the bean's init-method attribute.
-				   The "after init" method will run after the method that is registered in the bean's destroy-method attribute.
+				   The "after init" method will run after the method that is registered in the bean's init-method attribute.
 Ordered: see BeanPostProcessor.			   
+
+
+
+
+
+
+see also:
+search:
+full bean lifecycle
+full context life cycle
+
+http://www.java2novice.com/spring/
