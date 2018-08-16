@@ -266,6 +266,17 @@ public void handleAfterCommit(TaskScheduledEvent event)
 The fallbackExecution attribute tells Spring weather to run the handler when no transaction is used.
 The phase attribute tells Spring in which phase of the transaction to use the handler.
  
+ 
+AOP
+***
+Aspect-Oriented Programming is about breaking down program logic into distinct parts called so-called concerns. 
+The functions that span multiple points of an application are called cross-cutting concerns and these cross-cutting concerns are conceptually separate from the application's business logic. 
+There are various common good examples of aspects like logging, auditing, declarative transactions, security, caching, etc.
+The key unit of modularity in OOP is the class, whereas in AOP the unit of modularity is the aspect. 
+Dependency Injection helps you decouple your application objects from each other 
+and AOP helps you decouple cross-cutting concerns from the objects that they affect. 
+AOP is like triggers in programming languages such as Perl, .NET (SQL), Java, and others.
+
 
 Useful Interfaces:
 ******************
