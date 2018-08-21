@@ -277,6 +277,20 @@ Dependency Injection helps you decouple your application objects from each other
 and AOP helps you decouple cross-cutting concerns from the objects that they affect. 
 AOP is like triggers in programming languages such as Perl, .NET (SQL), Java, and others.
 
+Terminology:
+Aspect - a module which has a set of APIs providing cross-cutting requirements. For example, a logging module.
+Join point - a point in your application where you can plug-in the AOP aspect. The actual place in the application where an action will be taken using Spring AOP framework.
+Advice - actual action (actual code) to be taken either before or after the method execution. 
+		{ Actually, the advice is a specific API from the Aspect, that is called in the Join point? --> Pointcut is a Join point related to a specific API in the Aspect? }
+Pointcut - a set of one or more join points where an advice should be executed (can be specified using expressions or patterns).
+Introduction - allows to add new methods or attributes to the existing classes.
+Target object - the object being advised by one or more aspects. This object will always be a proxied object, also referred to as the advised object.
+Weaving - the process of linking aspects with other application types or objects to create an advised object. This can be done at compile time, load time, or at runtime.
+Advice types: before, after, around (all three run regardless to execution result - success or exception), after-returning (execution only if method completes successfully), after-throwing (execution only if method exits by throwing an exception).
+
+
+
+
 
 Useful Interfaces:
 ******************
