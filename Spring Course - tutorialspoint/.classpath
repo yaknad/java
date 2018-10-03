@@ -24,5 +24,9 @@
 	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/spring-framework-5.0.3.RELEASE-dist/spring-framework-5.0.3.RELEASE/libs/spring-webmvc-5.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/spring-framework-5.0.3.RELEASE-dist/spring-framework-5.0.3.RELEASE/libs/spring-websocket-5.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ynadler/Desktop/commons-logging-1.2-bin/commons-logging-1.2/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/aspectj1.9/lib/aspectjrt.jar"/>
+	<classpathentry kind="lib" path="C:/aspectj1.9/lib/aspectjtools.jar"/>
+	<classpathentry kind="lib" path="C:/aspectj1.9/lib/aspectjweaver.jar"/>
+	<classpathentry kind="lib" path="C:/aspectj1.9/lib/org.aspectj.matcher.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
