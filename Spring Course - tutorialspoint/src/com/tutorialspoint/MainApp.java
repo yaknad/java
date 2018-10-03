@@ -14,6 +14,7 @@ import com.tutorialspoint.annotations.TextEditorAnnotated;
 import com.tutorialspoint.annotations.TextEditorAnnotatedAutowiredConstructor;
 import com.tutorialspoint.annotations.TextEditorAnnotatedNoSetters;
 import com.tutorialspoint.annotations.TextEditorAnnotatedWithResourceAnnotation;
+import com.tutorialspoint.aop.StudentAop;
 import com.tutorialspoint.events.CustomEventPublisher;
 import com.tutorialspoint.javabasedconfiguration.AnotherConfig2;
 import com.tutorialspoint.javabasedconfiguration.HelloWorldConfig;
@@ -291,11 +292,16 @@ public class MainApp{
 		cvp.publish(); 
 		cvp.publish(); 
 		cvp.publish(); 
-		
-		
-		
 
-		// stopped at:
-		// https://www.tutorialspoint.com/spring/custom_events_in_spring.htm	
+
+
+		System.out.println("----------- AOP: Start -----------");
+
+		ApplicationContext contextAop = new ClassPathXmlApplicationContext("Beans_Aop.xml");
+
+		StudentAop aopStudent = (StudentAop) contextAop.getBean("student");
+		aopStudent.getName();
+		aopStudent.getAge();
+		aopStudent.printThrowException();
 	}	
 }
