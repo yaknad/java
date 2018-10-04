@@ -288,6 +288,39 @@ Target object - the object being advised by one or more aspects. This object wil
 Weaving - the process of linking aspects with other application types or objects to create an advised object. This can be done at compile time, load time, or at runtime.
 Advice types: before, after, around (all three run regardless to execution result - success or exception), after-returning (execution only if method completes successfully), after-throwing (execution only if method exits by throwing an exception).
 
+XML Schema based AOP:
+In the beans xml file header, use the attribute: 
+xmlns:aop = "http://www.springframework.org/schema/aop"
+
+in the beans xml file declare:
+1. Aspect (api set) + a bean declaration (the bean that is used as the Aspect):
+
+<aop:config>
+   <aop:aspect id = "myAspect" ref = "aBean">
+      ...
+   </aop:aspect>
+</aop:config>
+
+<bean id = "aBean" class = "...">
+   ...
+</bean>
+
+2. Inside the Aspcet, declare pointcut(s) [pointcut = pattern for join points, where the Aspcet (to be precise, an Advice, that is a call to one of the Aspect's api's), will be called]:
+<aop:aspect id = "myAspect" ref = "aBean">
+      <aop:pointcut id = "businessService" 
+         expression = "execution(*com.xyz.myapp.service.*.*(..))"/>
+         ...
+</aop:aspect>
+
+3. Inside the Aspcet (alongside the pointcuts), declare a list of Advices (Advice = Aspect's api function to be called on a given pointcut, when a certain event happens):
+
+<aop:pointcut id = "businessService" expression = "execution(* com.xyz.myapp.service.*.*(..))"/>
+         
+<!-- a before advice definition -->
+<aop:before pointcut-ref = "businessService" method = "doRequiredTask"/>  // "pointcut-ref" points to the declared pointcut, "method" is a function in the Ascpet bean class.
+
+<!-- an after advice definition -->
+<aop:after pointcut-ref = "businessService" method = "doRequiredTask"/>
 
 
 
