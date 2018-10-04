@@ -308,8 +308,7 @@ in the beans xml file declare:
 2. Inside the Aspcet, declare pointcut(s) [pointcut = pattern for join points, where the Aspcet (to be precise, an Advice, that is a call to one of the Aspect's api's), will be called]:
 <aop:aspect id = "myAspect" ref = "aBean">
       <aop:pointcut id = "businessService" 
-         expression = "execution(*com.xyz.myapp.service.*.*(..))"/>
-         ...
+         expression = "execution(*com.xyz.myapp.service.*.*(..))"/> // to "Catch" only the getName function use: expression = "execution(* com.tutorialspoint.Student.getName(..))"/>         
 </aop:aspect>
 
 3. Inside the Aspcet (alongside the pointcuts), declare a list of Advices (Advice = Aspect's api function to be called on a given pointcut, when a certain event happens):
