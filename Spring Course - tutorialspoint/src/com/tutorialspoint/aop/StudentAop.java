@@ -20,6 +20,6 @@ public class StudentAop {
 	}
 	public void printThrowException(){
 		System.out.println("Exception raised");
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("This exception is on intention!!!");
 	}
 }

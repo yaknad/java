@@ -313,13 +313,18 @@ in the beans xml file declare:
 
 3. Inside the Aspcet (alongside the pointcuts), declare a list of Advices (Advice = Aspect's api function to be called on a given pointcut, when a certain event happens):
 
-<aop:pointcut id = "businessService" expression = "execution(* com.xyz.myapp.service.*.*(..))"/>
+<aop:pointcut id = "businessService" expression = "execution(* com.xyz.myapp.service.*.*(..))"/> // (the first * is the returning type of the method. It may be declared also as "execution(public * com.xyz.myapp.service.*.*(..))" and filter the access modifier
          
 <!-- a before advice definition -->
 <aop:before pointcut-ref = "businessService" method = "doRequiredTask"/>  // "pointcut-ref" points to the declared pointcut, "method" is a function in the Ascpet bean class.
 
 <!-- an after advice definition -->
 <aop:after pointcut-ref = "businessService" method = "doRequiredTask"/>
+
+
+@AspectJ Based AOP:
+
+
 
 
 

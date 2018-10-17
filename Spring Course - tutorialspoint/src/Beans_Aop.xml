@@ -1,6 +1,7 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
    http://www.springframework.org/schema/aop 
@@ -10,8 +11,11 @@
 		<aop:aspect id="log" ref="logging">
 			<aop:pointcut id="selectAll"
 				expression="execution(* com.tutorialspoint.aop.*.*(..))" />
+			<aop:pointcut id="selectOnlyGetNameMethods"
+				expression="execution(* com.tutorialspoint.aop.*.getName(..))" />
 
 			<aop:before pointcut-ref="selectAll" method="beforeAdvice" />
+			<aop:before pointcut-ref="selectOnlyGetNameMethods" method="beforeAdvice2" />
 			<aop:after pointcut-ref="selectAll" method="afterAdvice" />
 			<aop:after-returning pointcut-ref="selectAll"
 				returning="retVal" method="afterReturningAdvice" />
@@ -21,13 +25,19 @@
 		</aop:aspect>
 	</aop:config>
 
+	<!-- For AspectJ based Aspects -->
+	<aop:aspectj-autoproxy/>
+	
 	<!-- Definition for student bean -->
 	<bean id="student" class="com.tutorialspoint.aop.StudentAop">
 		<property name="name" value="Zara" />
 		<property name="age" value="11" />
 	</bean>
 
-	<!-- Definition for logging aspect -->
+	<!-- Definition for logging aspect bean (xml based Aspect) -->
 	<bean id="logging" class="com.tutorialspoint.aop.Logging" />
-
+	
+	<!-- Definition for logging aspect bean (AspectJ based Aspect)-->
+	<bean id = "myAspect" class = "com.tutorialspoint.aop.AspectJBasedAspect" />
+	
 </beans>

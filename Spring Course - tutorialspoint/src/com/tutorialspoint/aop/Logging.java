@@ -7,7 +7,11 @@ public class Logging {
 	 * before a selected method execution.
 	 */
 	public void beforeAdvice(){
-		System.out.println("Going to setup student profile.");
+		System.out.println("XmlBasedAspect: Going to setup student profile.");
+	}
+	
+	public void beforeAdvice2(){
+		System.out.println("XmlBasedAspect: Now using beforeAdvice2 method.");
 	}
 
 	/** 
@@ -15,7 +19,7 @@ public class Logging {
 	 * after a selected method execution.
 	 */
 	public void afterAdvice(){
-		System.out.println("Student profile has been setup.");
+		System.out.println("XmlBasedAspect: Student profile has been setup.");
 	}
 
 	/** 
@@ -23,7 +27,7 @@ public class Logging {
 	 * when any method returns.
 	 */
 	public void afterReturningAdvice(Object retVal) {
-		System.out.println("Returning:" + retVal.toString() );
+		System.out.println("XmlBasedAspect: Returning:" + (retVal != null ? retVal.toString() : "null"));
 	}
 
 	/**
@@ -31,7 +35,7 @@ public class Logging {
 	 * if there is an exception raised.
 	 */
 	public void AfterThrowingAdvice(IllegalArgumentException ex){
-		System.out.println("There has been an exception: " + ex.toString());   
+		System.out.println("XmlBasedAspect: There has been an exception: " + ex.toString());   
 	}
 	
 }
