@@ -303,5 +303,7 @@ public class MainApp{
 		aopStudent.getName();
 		aopStudent.getAge();
 		aopStudent.printThrowException();
+		
+		System.out.println("----------- AOP: End -----------");
 	}	
 }

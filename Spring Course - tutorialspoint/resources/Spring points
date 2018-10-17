@@ -289,6 +289,7 @@ Weaving - the process of linking aspects with other application types or objects
 Advice types: before, after, around (all three run regardless to execution result - success or exception), after-returning (execution only if method completes successfully), after-throwing (execution only if method exits by throwing an exception).
 
 XML Schema based AOP:
+---------------------
 In the beans xml file header, use the attribute: 
 xmlns:aop = "http://www.springframework.org/schema/aop"
 
@@ -321,9 +322,14 @@ in the beans xml file declare:
 <!-- an after advice definition -->
 <aop:after pointcut-ref = "businessService" method = "doRequiredTask"/>
 
+Note: see some remarks about the "Around" Advice in the annotations based example code.
 
-@AspectJ Based AOP:
 
+@AspectJ annotations based AOP:
+-------------------------------
+1. Use the <aop:aspectj-autoproxy/> tag in the xml file (if using mixed xml based and annotation based, use this tag AFTER the xml based configuration)
+2. Define a bean that will be used as the Aspect.
+3. Use annotations on the Aspect class - see exmple.
 
 
 
