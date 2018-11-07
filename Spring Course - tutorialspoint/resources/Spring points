@@ -329,7 +329,7 @@ Note: see some remarks about the "Around" Advice in the annotations based exampl
 -------------------------------
 1. Use the <aop:aspectj-autoproxy/> tag in the xml file (if using mixed xml based and annotation based, use this tag AFTER the xml based configuration)
 2. Define a bean that will be used as the Aspect.
-3. Use annotations on the Aspect class - see exmple.
+3. Use annotations on the Aspect class - see example.
 
 
 
