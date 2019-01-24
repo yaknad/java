@@ -7,7 +7,6 @@
   </parent>
   <groupId>Spring-Tests</groupId>
   <artifactId>spring-web</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Spring tests web</name>
 </project>
