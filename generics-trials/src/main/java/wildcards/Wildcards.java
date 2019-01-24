@@ -34,14 +34,20 @@ public class Wildcards {
 	 * objects.add(new Object());
 	 * objects.add(5);
 	 * 
-	 * That's why it's called "Consumer Super", since the usage of the "super" bound enables this collection only to consume!	
+	 * but we can't add Objects or Numbers to it, since the actual list may be List<Integer> or List<Number>, that are both 
+	 * List<? super Integer>!
+	 * 
+	 * That's why it's called "Consumer Super", since the usage of the "super" bound enables this collection only to consume
+	 * objects of the specified type (super X)!	
 	 * 	
 	 */
 	
 	public void upperBoundedWildcard(List<? super Integer> list) {
 		Object o = list.get(0);
-		List<Object> objects = new ArrayList<Object>();
-		objects.add(new Object());
-		objects.add(5);
+		// Integer i = list.get(0);  - compilation error.
+		
+		list.add(5);
+		// list.add(new Object()); - compilation error, since the list may be List<Integer> or List<Number>
+		
 	}
 }
