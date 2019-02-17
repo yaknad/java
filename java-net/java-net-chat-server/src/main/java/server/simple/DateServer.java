@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.Charset;
@@ -26,6 +27,7 @@ public class DateServer {
 					OutputStream outputStream = socket.getOutputStream();
 					
 					Scanner scanner = new Scanner(inputStream);
+					PrintWriter out = new PrintWriter(outputStream, true);
 					
 					while(scanner.hasNextLine()) {
 						
@@ -34,10 +36,13 @@ public class DateServer {
 						String clientMsg = scanner.nextLine();										
 						System.out.println("Received a request from client:" + clientMsg);	
 						
-						try(OutputStreamWriter writer = new OutputStreamWriter(outputStream, Charset.defaultCharset())){
-							System.out.println("Sending response to client");	
-							writer.write("The current date time is: " + new Date() + " \r\n");
-						}
+//						try(OutputStreamWriter writer = new OutputStreamWriter(outputStream, Charset.defaultCharset())){
+//							System.out.println("Sending response to client");	
+//							writer.write("The current date time is: " + new Date() + " \r\n");
+//						}
+						
+						System.out.println("Sending response to client");	
+						out.println("The current date time is: " + new Date());
 						
 //						clientMsg = new BufferedReader(new InputStreamReader(inputStream))
 //								.lines().collect(Collectors.joining("\n"));

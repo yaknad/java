@@ -22,11 +22,10 @@ public class DateClient {
 			System.out.println("Server response: " + in.nextLine());
 
 			
-			//TODO: why the second message doesn't arrive?
-			// NOTE that without the \r\n the server dosn't recognize a new line.
-			// but CHECK that with the \r\n, it gets an empty line!!!
+			// NOTE: when we use a Stream as a text stream (reading it with a scanner that searches for "newLine"),
+			// we must use a PrintWriter (with .println() etc.) in order to create the expected new lines the scanner expect! 
 			
-			writer.println("another message from client!\r\n");
+			writer.println("another message from client!");
 		    writer.flush();
 			System.out.println("second request sent to server!");
 			if(in.hasNextLine()) {
