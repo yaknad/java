@@ -29,11 +29,14 @@ public class DateServer {
 					
 					while(scanner.hasNextLine()) {
 						
+						System.out.println("Listening to client's messages:");	
+						
 						String clientMsg = scanner.nextLine();										
 						System.out.println("Received a request from client:" + clientMsg);	
 						
 						try(OutputStreamWriter writer = new OutputStreamWriter(outputStream, Charset.defaultCharset())){
-							writer.write("The current date time is: " + new Date());
+							System.out.println("Sending response to client");	
+							writer.write("The current date time is: " + new Date() + " \r\n");
 						}
 						
 //						clientMsg = new BufferedReader(new InputStreamReader(inputStream))
@@ -44,7 +47,9 @@ public class DateServer {
 							System.out.println("Received a stop server request from client. STOPPING!");
 							serverOn = false;
 							break;
-						} 						
+						} 	
+						System.out.println("not stopping!");	
+						
 					}					          			
 				}
 			}
