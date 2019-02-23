@@ -1,0 +1,15 @@
+Good sources:
+https://www.youtube.com/watch?v=CZ3wIuvmHeM
+
+
+Problems:
+---------
+
+problem 1:
+Shared code: When several services use the same code - like domain object hierarchy. Each service should write it's own code and not reuse other service's code, since using a common code base is against the princiapl of every service independant code base - free of other team's bugs.
+
+problem 2:
+Common data: when multi[le services need the same kind of data in their DB, the data should be duplicated, since keeping it in a common DB breaks the principle of an independant data source for each service - to prevent data structure collisions - e.g. when one service needs a new column in a common table - it will enforce a code change in all the services that use this data source!
+
+problem 3:
+Cross service transactions: It's a simple process to create a transaction form a single service - since all the transaction steps are in the same process, and can manage a rollback when necessary. When multiple services participate in a transaction, they should coordinate the order of actions, make sure all the relevant services are acting in a trasaction mode (blocking other coliding actions) and enable a cross-services rollback when required.
