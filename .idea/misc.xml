@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/serialization/Jackson" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/net/chat/client/target/classes/META-INF/maven/chat/client/pom.xml" />
+        <option value="$PROJECT_DIR$/net/chat/client/target/classes/META-INF/maven/chat/client/pom.properties" />
+        <option value="$PROJECT_DIR$/net/chat/client/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/net/chat/server/target/classes/META-INF/maven/chat/server/pom.xml" />
+        <option value="$PROJECT_DIR$/net/chat/server/target/classes/META-INF/maven/chat/server/pom.properties" />
+        <option value="$PROJECT_DIR$/net/chat/server/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/net/chat/pom.xml" />
+        <option value="$PROJECT_DIR$/core/pom.xml" />
+        <option value="$PROJECT_DIR$/jdbc/target/classes/META-INF/maven/jdbc/jdbc/pom.xml" />
+        <option value="$PROJECT_DIR$/jdbc/target/classes/META-INF/maven/jdbc/jdbc/pom.properties" />
+        <option value="$PROJECT_DIR$/jdbc/pom.xml" />
+        <option value="$PROJECT_DIR$/spring/basic/target/classes/META-INF/maven/spring/spring-basic/pom.xml" />
+        <option value="$PROJECT_DIR$/spring/basic/target/classes/META-INF/maven/spring/spring-basic/pom.properties" />
+        <option value="$PROJECT_DIR$/spring/basic/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/spring/pom.xml" />
+        <option value="$PROJECT_DIR$/generics/target/classes/META-INF/maven/generics/generics/pom.xml" />
+        <option value="$PROJECT_DIR$/generics/target/classes/META-INF/maven/generics/generics/pom.properties" />
+        <option value="$PROJECT_DIR$/generics/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/generics/pom.xml" />
+        <option value="$PROJECT_DIR$/serialization/Jackson/target/m2e-wtp/web-resources/META-INF/maven/Tests/Jackson/pom.xml" />
+        <option value="$PROJECT_DIR$/serialization/Jackson/target/m2e-wtp/web-resources/META-INF/maven/Tests/Jackson/pom.properties" />
+        <option value="$PROJECT_DIR$/serialization/Jackson/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/serialization/Jackson/pom.xml" />
+        <option value="$PROJECT_DIR$/designPatterns/target/classes/META-INF/maven/DesignPatterns/design-patterns/pom.xml" />
+        <option value="$PROJECT_DIR$/designPatterns/target/classes/META-INF/maven/DesignPatterns/design-patterns/pom.properties" />
+        <option value="$PROJECT_DIR$/designPatterns/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/designPatterns/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="client (1)" />
+        <module name="core" />
+        <module name="design-patterns (1)" />
+        <module name="generics (1)" />
+        <module name="Jackson (1)" />
+        <module name="jdbc (1)" />
+        <module name="maven-archiver (1)" />
+        <module name="maven-archiver (2)" />
+        <module name="maven-archiver (3)" />
+        <module name="maven-archiver (4)" />
+        <module name="maven-archiver (5)" />
+        <module name="maven-archiver (6)" />
+        <module name="server (1)" />
+        <module name="spring-basic (1)" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="client (2)" target="1.5" />
+      <module name="client (3)" target="1.8" />
+      <module name="design-patterns (2)" target="1.5" />
+      <module name="design-patterns (3)" target="1.5" />
+      <module name="design-patterns (3) (DesignPatterns)" target="1.5" />
+      <module name="generics (2)" target="1.5" />
+      <module name="generics (3)" target="1.5" />
+      <module name="generics (3) (generics)" target="1.5" />
+      <module name="Jackson (2)" target="1.5" />
+      <module name="Jackson (3)" target="1.5" />
+      <module name="Jackson (3) (Tests)" target="1.5" />
+      <module name="jdbc (2)" target="1.5" />
+      <module name="jdbc (3)" target="1.5" />
+      <module name="jdbc (3) (jdbc)" target="1.5" />
+      <module name="server (2)" target="1.5" />
+      <module name="server (3)" target="1.8" />
+      <module name="spring-basic (2)" target="1.5" />
+      <module name="spring-basic (3)" target="1.8" />
+      <module name="spring-basic (3) (spring)" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
