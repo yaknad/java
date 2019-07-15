@@ -2,47 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a87307bf-9920-4c68-8963-64d9ae56ba9e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarIssues.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Serialization/Jackson/Jackson (1).iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/core.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/designPatterns/design-patterns (1).iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/generics/generics (1).iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jdbc/jdbc (1).iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/chat/chat.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/chat/client/client (1).iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/chat/server/server (1).iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring/basic/spring-basic (1).iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring/spring.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Serialization/Jackson/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Serialization/Jackson/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Serialization/Jackson/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/designPatterns/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/designPatterns/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/designPatterns/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generics/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generics/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generics/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jdbc/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jdbc/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jdbc/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/chat/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/chat/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/chat/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/chat/client/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/chat/client/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/chat/client/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/chat/server/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/chat/server/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/chat/server/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring/basic/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring/basic/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring/basic/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarIssues.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarIssues.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/net/chat/client/target/" />
     <ignored path="$PROJECT_DIR$/net/chat/server/target/" />
@@ -136,7 +96,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1563192483804" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1563197637503" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Problems" />
@@ -166,15 +126,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1563190725063</updated>
-      <workItem from="1563190728513" duration="1439000" />
+      <workItem from="1563190728513" duration="1790000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1439000" />
+    <option name="totallyTimeSpent" value="1790000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1911" y="-9" width="1938" height="1098" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" />
       <window_info id="Image Layers" />
